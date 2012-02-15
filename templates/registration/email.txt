@@ -1,0 +1,5 @@
+{% load i18n %}
+{% trans "Welcome to" %} {{ site.name }}:
+{% trans "You registered on site" %}{{ site.name }}:
+
+http://{{ site.domain }}

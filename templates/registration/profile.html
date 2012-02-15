@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load insert_tags %}
+
+{% block external %}
+    <script src="{{ STATIC_URL }}js/payment.again.js" type="text/javascript"></script> 
+	<script type="text/javascript">
+		function chTab(id){
+			if(id==1){
+				$('#Tabs-description').css("display","block")		
+				$('#Tabs-suboffice').css("display","none")
+				$('#Tabs-disclamer').css("display","none")
+				$('#tab1').addClass('Act')
+				$('#tab2').removeClass()
+				$('#tab3').removeClass()						
+			}else if(id==2){
+				$('#Tabs-description').css("display","none")							
+				$('#Tabs-suboffice').css("display","block")
+				$('#Tabs-disclamer').css("display","none")
+				$('#tab2').addClass('Act')
+				$('#tab1').removeClass()
+				$('#tab3').removeClass()			
+			}else if(id==3){
+				$('#Tabs-description').css("display","none")							
+				$('#Tabs-suboffice').css("display","none")
+				$('#Tabs-disclamer').css("display","block")
+				$('#tab3').addClass('Act')
+				$('#tab2').removeClass()
+				$('#tab1').removeClass()			
+			}
+		}		
+		$(document).ready(function(){
+			
+		});
+		
+		
+	</script>
+{% endblock %}
+
+{% block content %}
+{% ifequal user.pk id %}
+
+{% insert_str media "fancybox/jquery.fancybox-1.3.4.css" %}
+{% insert_str media "fancybox/jquery.fancybox-1.3.4.pack.js" %}
+{% insert_str media "fancybox/jquery.easing-1.3.pack.js" %}
+{% insert_str media "fancybox/jquery.mousewheel-3.0.4.pack.js" %}
+
+
+	{% block tabs %}
+<div class="Tabs">
+	<ul>
+		<li id="tab1" class="Act"><a href="javascript:chTab(1)"><span>Мои подарки</span></a></li>
+		<li id="tab2"><a href="javascript:chTab(2)"><span>Мой кабинет</span></a></li>
+		<li id="tab3"><a href="javascript:chTab(3)"><span>Мои заказы</span></a></li>		
+	</ul>
+</div>
+
+<div class="ContentTopBlock ContentTopAlt">
+	<div class="ContentBottomBlock">
+		<div class="PageContent">
+			<div id="Tabs-description">
+				<div id="tab-profile" class="tabs" style="display: block;">
+					<table class="HistTab">
+					<tbody>
+							<tr>
+								<th>Описание подарка</th>
+								<th>Кому</th>
+								<th>Статус отправки</th>
+								<th>Статус оплаты</th>
+							</tr>	
+					{% for i in gifts %}											
+						<tr class="{% cycle 'any' 'BlueTR' %}">
+							<td>{{ i.company }}</td>
+							<td>
+								{{ i.giftant_email }}
+								{% ifequal i.get_usage_status_display 'not used' %}
+								<a id="editform" href="{% url change_giftant_mail user.id i.pk %}">Переадресация</a>
+								{% endifequal %}
+							</td>
+								<td>{{ i.get_delivery_status_display }}
+							</td>
+							</td>
+								<td>{{ i.get_payment_status_display }}
+								<a href="{% url delete_gift user.id i.id %}">Удалить</a>
+							</td>							
+						</tr>														
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			</div>
+			<div id="Tabs-suboffice" style="display: none;">
+				<div class="profile-link profile-user-div-link">Регистрационная информация</div>
+					
+			<form method="post" action=".">{% csrf_token %}
+			  	<table class="profile-table data-table" style="text-align: left;">													
+							{{ profile_form.as_table }}
+				</table>
+				{% load i18n %}
+				<p>{% trans "Enter the same password as above, for verification." %}</p>				
+				<input type="submit" value="Сохранить" />
+			</form>
+			</div>
+			<div id="Tabs-disclamer" style="display: none;">				
+				<table class="HistTab">
+					<tbody>					
+						<tr>
+							<th>Id</th>
+							<th>Описание подарка</th>
+							<th>Кому</th>
+							<th>Статус оплаты</th>
+						</tr>
+						{% for i in order %}
+							<tr class="BlueTR">
+								<td>{{ i.id }}</td>
+								<td colspan="2">Стоимость заказа:{{ i.amount }}</td>								
+								{% if i.is_paid %}
+									<td>Оплачено</td>
+								{% else %}									
+									<td><a href="javascript:pay_again({{ i.id }});" >Оплатить</a></td>
+								{% endif %}
+								</tr>
+									{% for j in i.gifts.all %}
+										<tr>
+										<td></td>
+										<td>{{ j.company }}</td>
+										<td>
+											{{ j.giftant_email }}
+											{% ifequal j.get_usage_status_display 'not used' %}
+												<a id="editform" href="{% url change_giftant_mail user.id j.pk %}">Переадресация</a>
+											{% endifequal %}											
+										</td>
+										<td>{{ j.get_delivery_status_display }}</td>
+										</tr>
+										
+									{% endfor %}																						
+						{% endfor %}
+					</tbody>
+				</table>				
+			</div>			
+		</div>
+		
+	</div>
+</div>
+<div id="dark-background"></div>
+<div class="Registration" id="payment-confirm-popup" style="display:none;">
+    <span class="close"></span> 
+	<h2>Подтвердите платеж</h2> 
+	<div id="payment-confirm-form"></div> 
+</div> 
+{% insert ready %}
+	$("a#editform").fancybox();
+{% endinsert %}
+	{% endblock %}
+{% else %}
+		<p>Please, go out form this page</p>
+		{% endifequal %}
+{% endblock %}

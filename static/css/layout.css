@@ -1,0 +1,51 @@
+.col1, .col2, .col3, .col4, .cols {
+	float:left;
+}
+.col {
+	width:515px;
+	float:right;
+	padding-right:45px;
+}
+.col1 {
+	padding-left:50px;
+	width:280px;
+}
+.col2 {
+	padding-left:50px;
+	width:510px;
+}
+.col3 {
+	width:266px;
+	padding-left:30px;
+}
+.col4 {
+	width:277px;
+	padding-left:30px;
+}
+.cols {
+	width:226px;
+}
+#page1 .body1 {
+	background:url(../images/bg_top.gif) top repeat-x #fff;
+}
+#page1 .body2 {
+	background:url(../images/bg_top_img.jpg) top center no-repeat;
+}
+#page1 h1 {
+	padding:31px 0 0 217px;
+}
+#page1 #search {
+	padding:38px 50px 0 0;
+}
+#page1 #menu {
+	padding:32px 27px 0 0;
+}
+#page1 h2 {
+	padding:42px 0 21px 0;
+}
+#page1 header {
+	padding-bottom:33px;
+}
+#page5 .cols {
+	width:90px;
+}

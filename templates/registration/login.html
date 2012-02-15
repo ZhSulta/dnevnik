@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="ContentTopBlock">
+	<div class="ContentBottomBlock">	
+		<div class="PageContent">			
+			<div id="at_bitrix">
+				{% load uni_form_tags %}			
+				{% uni_form login_form login_form.helper %}									
+			</div>
+		</div>
+	</div>
+</div>
+	
+{% endblock %}
