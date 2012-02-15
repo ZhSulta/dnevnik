@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import authenticate
 from dnevniktools.dbutils import get_nextautoincrement
 from django.contrib.auth.models import User
-from models.models import StudentProfile
+from apps.models.models import StudentProfile
 
 
 from uni_form import helpers

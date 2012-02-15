@@ -1,4 +1,13 @@
 {% extends "student/base.html" %}
 {% block content %}
-	organization page
+	<div id="footer">
+      <div>
+        <ul>
+          <li><a class="quiet" href="{% url school_reg %}">Registrate the school</a></li>
+          <li><a class="quiet" href="{% url teachers_reg %}">Registrate the teachers</a></li>
+          <li><a class="quiet" href="{% url students_reg %}">Registrate the students</a></li>
+          <li><a class="quiet" href="{% url parents_reg %}">Registrate the parents</a></li>          
+        </ul>
+      </div>
+      
 {% endblock %}

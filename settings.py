@@ -3,10 +3,16 @@
 import os
 import sys
 
+
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 def rel(*x):
     return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
-sys.path.append(rel('apps'))
+def rel_to(to, *x):
+    return os.path.join(to, *x)
+
+sys.path.insert(0, rel('apps'))
+sys.path.insert(0, PROJECT_PATH)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -64,7 +70,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT  =''
+STATIC_ROOT  = ''
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
@@ -151,6 +157,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+WORK_ROOT = rel('..', '..')
+LOG_DIR = rel_to(WORK_ROOT, 'logs')
+
+    
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.

@@ -7,7 +7,7 @@ class Student(models.Model):
     mobile = models.CharField(max_length = 20, blank = True, null = True)
 
     def __unicode__(self):
-        return self.email()
+        return self.name()
 
     def first_name(self):
         return self.user.first_name
@@ -17,7 +17,7 @@ class Student(models.Model):
 
     def email(self):
         return self.user.email
-
+    
 class StudentProfile(models.Model):
     user = models.OneToOneField(User)
     address = models.CharField(max_length = 255, blank = True, null = True)
@@ -51,7 +51,6 @@ class Teacher(models.Model):
 
     def email(self):
         return self.user.email
-
 class TeacherProfile(models.Model):
     user = models.OneToOneField(User)
     address = models.CharField(max_length = 255, blank = True, null = True)
@@ -82,9 +81,6 @@ class Parent(models.Model):
 
     def last_name(self):
         return self.user.last_name
-
-    def email(self):
-        return self.user.email
 class ParentProfile(models.Model):
     user = models.OneToOneField(User)
     address = models.CharField(max_length = 255, blank = True, null = True)
@@ -102,14 +98,9 @@ class ParentProfile(models.Model):
     def email(self):
         return self.user.email
 
-
-class School(models.Model):
+class Organization(models.Model):
+    name = models.CharField(max_length=30)
     user = models.OneToOneField(User)
-    address = models.CharField(max_length = 255, blank = True, null = True)
-    mobile = models.CharField(max_length = 20, blank = True, null = True)
-
-    def __unicode__(self):
-        return self.email()
 
     def first_name(self):
         return self.user.first_name
@@ -117,23 +108,22 @@ class School(models.Model):
     def last_name(self):
         return self.user.last_name
 
-    def email(self):
-        return self.user.email
-
-class SchoolProfile(models.Model):
-    user = models.OneToOneField(User)
+class School(models.Model):    
+    name = models.CharField(max_length=30)
+    city = models.CharField(max_length=30)
     address = models.CharField(max_length = 255, blank = True, null = True)
     mobile = models.CharField(max_length = 20, blank = True, null = True)
+    org = models.ForeignKey(Organization)
+    
+
+class City(models.Model):
+    name = models.CharField(max_length = 100, unique = True)
+
+    class Meta:
+        verbose_name = 'city'
+        verbose_name_plural = 'cities'
 
     def __unicode__(self):
-        return self.email()
+        return self.name
 
-    def first_name(self):
-        return self.user.first_name
-
-    def last_name(self):
-        return self.user.last_name
-
-    def email(self):
-        return self.user.email
-
+    
