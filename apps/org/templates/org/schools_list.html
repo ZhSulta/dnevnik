@@ -1,0 +1,26 @@
+{% extends "student/base.html" %}
+{% block content %}
+	<a href="{% url org %}">Back</a></br>
+	{% if rc %}		
+	<table style="width: 200px;">
+		<thead>
+			<td>School Name</td>
+		</thead>			
+		{% for i in rc %}															
+			<tr class="{% cycle 'any' 'BlueTR' %}">				
+				<td>{{ i.name }}</td>
+				</td>			
+				<td>		
+					<a href="{% url school_del i.id %}">Delete</a>
+				</td>
+				<td>		
+					<a href="{% url school_info i.id %}">Info</a>
+				</td>								
+			</tr>														
+		{% endfor %}
+	</table>	
+	{% else %}									
+		<p>No school</p>
+	{% endif %}
+	 <a href="{% url school_reg %}">Add school</a>
+{% endblock %}

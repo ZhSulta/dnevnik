@@ -8,133 +8,21 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
-        # Adding model 'City'
-        db.create_table('models_city', (
+        # Adding model 'School_info'
+        db.create_table('models_school_info', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=100)),
+            ('school', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['models.School'], unique=True)),
+            ('teachers_number', self.gf('django.db.models.fields.IntegerField')()),
+            ('students_number', self.gf('django.db.models.fields.IntegerField')()),
+            ('parents_number', self.gf('django.db.models.fields.IntegerField')()),
         ))
-        db.send_create_signal('models', ['City'])
-
-        # Adding model 'Organization'
-        db.create_table('models_organization', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-        ))
-        db.send_create_signal('models', ['Organization'])
-
-        # Adding model 'School'
-        db.create_table('models_school', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('city', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['models.City'], unique=True)),
-            ('address', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('mobile', self.gf('django.db.models.fields.CharField')(max_length=20, null=True, blank=True)),
-            ('org', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['models.Organization'])),
-        ))
-        db.send_create_signal('models', ['School'])
-
-        # Adding model 'Student'
-        db.create_table('models_student', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('address', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('mobile', self.gf('django.db.models.fields.CharField')(max_length=20, null=True, blank=True)),
-            ('school', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['models.School'])),
-        ))
-        db.send_create_signal('models', ['Student'])
-
-        # Adding model 'StudentProfile'
-        db.create_table('models_studentprofile', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('student', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['models.Student'], unique=True)),
-        ))
-        db.send_create_signal('models', ['StudentProfile'])
-
-        # Adding model 'Teacher'
-        db.create_table('models_teacher', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('address', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('mobile', self.gf('django.db.models.fields.CharField')(max_length=20, null=True, blank=True)),
-            ('school', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['models.School'])),
-        ))
-        db.send_create_signal('models', ['Teacher'])
-
-        # Adding model 'TeacherProfile'
-        db.create_table('models_teacherprofile', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('teacher', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['models.Teacher'], unique=True)),
-            ('birth', self.gf('django.db.models.fields.DateField')()),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('nationality', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-        ))
-        db.send_create_signal('models', ['TeacherProfile'])
-
-        # Adding model 'Parent'
-        db.create_table('models_parent', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('address', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('mobile', self.gf('django.db.models.fields.CharField')(max_length=20, null=True, blank=True)),
-            ('school', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['models.School'])),
-            ('child', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['models.Student'], unique=True)),
-        ))
-        db.send_create_signal('models', ['Parent'])
-
-        # Adding model 'ParentProfile'
-        db.create_table('models_parentprofile', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('parentsn', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['models.Parent'], unique=True)),
-        ))
-        db.send_create_signal('models', ['ParentProfile'])
-
-        # Adding model 'temporary'
-        db.create_table('models_temporary', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('surname', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('pwd', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('city', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['models.City'], unique=True)),
-            ('teacher', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('student', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('org', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('parent', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('models', ['temporary'])
+        db.send_create_signal('models', ['School_info'])
 
 
     def backwards(self, orm):
         
-        # Deleting model 'City'
-        db.delete_table('models_city')
-
-        # Deleting model 'Organization'
-        db.delete_table('models_organization')
-
-        # Deleting model 'School'
-        db.delete_table('models_school')
-
-        # Deleting model 'Student'
-        db.delete_table('models_student')
-
-        # Deleting model 'StudentProfile'
-        db.delete_table('models_studentprofile')
-
-        # Deleting model 'Teacher'
-        db.delete_table('models_teacher')
-
-        # Deleting model 'TeacherProfile'
-        db.delete_table('models_teacherprofile')
-
-        # Deleting model 'Parent'
-        db.delete_table('models_parent')
-
-        # Deleting model 'ParentProfile'
-        db.delete_table('models_parentprofile')
-
-        # Deleting model 'temporary'
-        db.delete_table('models_temporary')
+        # Deleting model 'School_info'
+        db.delete_table('models_school_info')
 
 
     models = {
@@ -202,11 +90,19 @@ class Migration(SchemaMigration):
         'models.school': {
             'Meta': {'object_name': 'School'},
             'address': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'city': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['models.City']", 'unique': 'True'}),
+            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['models.City']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'mobile': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'org': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['models.Organization']"})
+        },
+        'models.school_info': {
+            'Meta': {'object_name': 'School_info'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'parents_number': ('django.db.models.fields.IntegerField', [], {}),
+            'school': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['models.School']", 'unique': 'True'}),
+            'students_number': ('django.db.models.fields.IntegerField', [], {}),
+            'teachers_number': ('django.db.models.fields.IntegerField', [], {})
         },
         'models.student': {
             'Meta': {'object_name': 'Student'},

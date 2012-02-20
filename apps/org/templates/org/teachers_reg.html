@@ -1,0 +1,11 @@
+{% extends "student/base.html" %}
+{% block content %}
+	Teacher registration form
+		<h3>{{ title }}</h3>
+	<table>
+		<form action="{% url teachers_reg %}" method="post">{% csrf_token %}
+			{{ form.as_table }}
+			<input type="submit" value="Sign UP"/> 
+		</form>
+	</table>      
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.models.models import City,Parent,Organization,ParentProfile,School,Student,StudentProfile,Teacher,TeacherProfile
+from apps.models.models import City,Parent,Organization,ParentProfile,School,Student,StudentProfile,Teacher,TeacherProfile,School_info
 
 
 class StudentAdmin(admin.ModelAdmin):
@@ -15,6 +15,7 @@ admin.site.register(Parent)
 admin.site.register(Organization)
 admin.site.register(ParentProfile)
 admin.site.register(School)
+admin.site.register(School_info)
 admin.site.register(Student,StudentAdmin)
 admin.site.register(StudentProfile)
 admin.site.register(Teacher)

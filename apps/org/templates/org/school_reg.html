@@ -1,0 +1,12 @@
+{% extends "student/base.html" %}
+{% block content %}
+{{ org }}	
+	School registration form 
+	<form action="{% url school_reg %}" method="post">{% csrf_token %}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<input type="submit" value="Add" />
+		<input type="reset" value="Reset" />			
+	</form>     
+{% endblock %}

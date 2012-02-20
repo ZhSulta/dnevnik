@@ -1,0 +1,14 @@
+{% extends "student/base.html" %}
+{% block content %}
+	<a href="{% url org %}">Back</a></br>
+	{% if rc %}
+		<div>	
+			<p></p>				
+			<p>School name is {{ rc.school.name }}</p>
+			<p>Number of teachers is {{ rc.teachers_number }}</p>
+			<p>Number of students is {{ rc.students_number }}</p>
+		</div>
+	{% else %}									
+		<p>No school</p>
+	{% endif %}	 
+{% endblock %}

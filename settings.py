@@ -111,9 +111,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    "django.core.context_processors.request",
-    'accounts.context_processors.login_form',
-    'accounts.context_processors.register_form',    
+    "django.core.context_processors.request",  
 )
 
 MIDDLEWARE_CLASSES = (
@@ -132,6 +130,8 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+LOGIN_REDIRECT_URL = '/'
 
 INSTALLED_APPS = (
     'django.contrib.auth',

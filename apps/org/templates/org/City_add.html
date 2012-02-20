@@ -1,0 +1,7 @@
+{% extends "student/base.html" %}
+{% block content %}
+	<form method="post" action="{% url city_add %}"> {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" value="Add" />
+	</form>
+{% endblock %}

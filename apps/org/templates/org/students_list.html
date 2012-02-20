@@ -17,16 +17,20 @@
        </ul>
 	</div>
 	<div>
-       <ul>         
+       <ul>
+         <li><a class="quiet" href="{% url school_info %}">Show information about school</a></li>
          <li><a class="quiet" href="{% url teachers_info %}">Show information about teachers</a></li>
          <li><a class="quiet" href="{% url students_info %}">Show information about students</a></li>
          <li><a class="quiet" href="{% url parents_info %}">Show information about parents</a></li>          
        </ul>
-	</div>	
-    <div>
+	</div>
+	<div>
        <ul>
-         <li><a class="quiet" href="{% url city_add %}">Add new city</a></li>
-         <li><a class="quiet" href="{% url city_list %}">List of all cities</a></li>                          
+         <li><a class="quiet" href="{% url school_del %}">Delete school</a></li>
+         <li><a class="quiet" href="{% url teacher_del %}">Delete teacher</a></li>
+         <li><a class="quiet" href="{% url student_del %}">Delete student</a></li>
+         <li><a class="quiet" href="{% url parents_del %}">Delete parents</a></li>          
        </ul>
-	</div>    
+	</div>  
+      
 {% endblock %}

@@ -29,6 +29,12 @@
     <hr>
     <div class="span-17 colborder" id="content">
       <h3 class="loud">
+    {% if user.is_authenticated %}
+		<div class="Authorized">		
+			<a class="username" href="#" >Здравствуйте, {{ user.email }}</a>			
+			<a class="exit" href="{% url auth_logout %}">Выход</a>
+		</div>	  		 
+	{% endif %}
       	{% block content %}
     	{% endblock %}
     </h3>
