@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from apps.models import settings as ns
+
 
 class City(models.Model):
     name = models.CharField(max_length = 100, unique = True)
@@ -77,15 +79,15 @@ class Parent(models.Model):
 class ParentProfile(models.Model):
     parentsn = models.OneToOneField(Parent)
 
-class temporary(models.Model):
-    name = models.CharField(max_length=30)
-    surname = models.CharField(max_length=30)
+class Temporary(models.Model):
+    username = models.CharField(max_length=30)
     pwd = models.CharField(max_length=30)
-    city = models.OneToOneField(City)
+    school = models.ForeignKey(School)
+    city = models.ForeignKey(City)
     
-    teacher = models.BooleanField(default=0)
-    student = models.BooleanField(default=0)
-    org = models.BooleanField(default=0)
-    parent = models.BooleanField(default=0)
+    role = models.IntegerField(choices = ns.USER_POSITIONS, default = ns.STUDENT_POSITION)
+    
+    def __unicode__(self):
+        return self.username
     
     

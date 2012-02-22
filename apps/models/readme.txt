@@ -5,7 +5,7 @@ python manage.py migrate models
 
 If table are already created
 Run 
-./manage.py convert_to_south myapp 
+./manage.py convert_to_south models 
 South will automatically make and pretend to apply your first migration.
 
 
