@@ -1,36 +1,58 @@
 {% extends "student/base.html" %}
 {% block content %}
-	<div>
-       <ul>
-         <li><a class="quiet" href="{% url school_reg %}">Register the school</a></li>
-         <li><a class="quiet" href="{% url teachers_reg %}">Register the teachers</a></li>
-         <li><a class="quiet" href="{% url students_reg %}">Register the students</a></li>
-         <li><a class="quiet" href="{% url parents_reg %}">Register the parents</a></li>          
-       </ul>
-	</div>
-    <div>
-       <ul>
-         <li><a class="quiet" href="{% url schools_list %}">List of all schools</a></li>
-         <li><a class="quiet" href="{% url teachers_list %}">List of all teachers</a></li>
-         <li><a class="quiet" href="{% url students_list %}">List of all students</a></li>
-         <li><a class="quiet" href="{% url parents_list %}">List of all parents</a></li>          
-       </ul>
-	</div>
-	<div>
-       <ul>
-         <li><a class="quiet" href="{% url school_info %}">Show information about school</a></li>
-         <li><a class="quiet" href="{% url teachers_info %}">Show information about teachers</a></li>
-         <li><a class="quiet" href="{% url students_info %}">Show information about students</a></li>
-         <li><a class="quiet" href="{% url parents_info %}">Show information about parents</a></li>          
-       </ul>
-	</div>
-	<div>
-       <ul>
-         <li><a class="quiet" href="{% url school_del %}">Delete school</a></li>
-         <li><a class="quiet" href="{% url teacher_del %}">Delete teacher</a></li>
-         <li><a class="quiet" href="{% url student_del %}">Delete student</a></li>
-         <li><a class="quiet" href="{% url parents_del %}">Delete parents</a></li>          
-       </ul>
-	</div>  
-      
+	<a href="{% url org %}">Back</a></br>
+	{% if teacher %}		
+	<table style="width: 200px;">
+		<thead>
+			<td>username</td>
+			<td>password</td>
+			<td>city</td>
+			<td>school</td>			
+		</thead>	
+		{% for i in teacher %}															
+			<tr class="{% cycle 'any' 'BlueTR' %}">				
+				<td>{{ i.username }}</td>
+				<td>{{ i.pwd }}</td>
+				</td>			
+				<td>		
+					<a href="{% url teacher_del i.id %}">Delete</a>
+				</td>	
+				<td>		
+					<a href="{% url teacher_info i.id %}">Info</a>
+				</td>		
+				<td>		
+					<a href="{% url teachers_info i.id %}">Info</a>
+				</td>										
+			</tr>														
+		{% endfor %}
+	</table>	
+	{% else %}									
+		<h1>No Registared Teachers</h1>
+	{% endif %}
+	{% if temp %}		
+	<h1>List of teachers that are not registered yet</h1>
+	<table style="width: 200px;">
+		<thead>
+			<td>username</td>
+			<td>password</td>
+			<td>city</td>
+			<td>school</td>			
+		</thead>			
+		{% for i in temp %}															
+			<tr class="{% cycle 'any' 'BlueTR' %}">				
+				<td>{{ i.username }}</td>
+				<td>{{ i.pwd }}</td>
+				<td>{{ i.city }}</td>
+				<td>{{ i.school }}</td>
+				</td>			
+				<td>		
+					<a href="{% url teacher_temp_del i.id %}">Delete</a>
+				</td>
+			</tr>														
+		{% endfor %}
+	</table>	
+	{% else %}									
+		<p>No Teacher</p>
+	{% endif %}
+	 <a href="{% url teachers_temp_reg %}">Add teacher</a>
 {% endblock %}

@@ -2,16 +2,12 @@
 
 
 {% block content %}
-<div class="ContentTopBlock">
-	<div class="ContentBottomBlock">	
-		<div class="PageContent">			
-			<div id="at_bitrix">
-				{% load uni_form_tags %}			
-				{% uni_form login_form login_form.helper %}		
-				<p><a href="{% url auth_password_reset %}">Forgot your password</a><p>														
-			</div>
-		</div>
-	</div>
-</div>
+<form action="{% url login %}" method="post">{% csrf_token %}
+			<table>
+			{{ form.as_table }}			
+			</table>   
+			<input type="Login" value="Sign UP"/> 
+			   
+		</form>
 	
 {% endblock %}

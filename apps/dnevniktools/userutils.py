@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, get_hexdigest
+from django.contrib.auth.models import User
 from dnevniktools.dbutils import get_nextautoincrement
 
 def construct_user(email, password):

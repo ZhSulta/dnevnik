@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.models.models import City,Parent,Organization,ParentProfile,School,Student,StudentProfile,Teacher,TeacherProfile,School_info
+from apps.models.models import City,Parent,Organization,ParentProfile,School,Student,StudentProfile,Teacher,TeacherProfile,School_info, Temporary
 
 
 class StudentAdmin(admin.ModelAdmin):
@@ -20,5 +20,7 @@ admin.site.register(Student,StudentAdmin)
 admin.site.register(StudentProfile)
 admin.site.register(Teacher)
 admin.site.register(TeacherProfile)
+admin.site.register(Temporary)
+
 
 

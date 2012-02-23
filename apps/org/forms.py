@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from apps.models.models import School, City
+from apps.models.models import School, City, Temporary
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)
@@ -15,6 +16,12 @@ class City_add_form(forms.ModelForm):
     class Meta:
         model = City        
     
+class TemporaryForm(forms.ModelForm):
+    number = forms.IntegerField(max_value = 100, min_value = 1)        
+    class Meta:
+        model = Temporary
+        exclude = ('username','pwd','role')
+
 class RegisterForm(forms.Form):
     
     username = forms.CharField(max_length=20)
